@@ -1,11 +1,10 @@
 package edu.escuelaing.arep.taller5.App.model;
 
-import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 
 @Entity
 public class Property {
@@ -13,32 +12,46 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String propertyName;
+    private String address;
+    private double price;
+    private String size;
     private String description;
-    private PropertyListingState listingState;
-    private PropertyState propertyState;
-    private LocalDate listingDate;
 
+    public Property() {
+    }
 
-    public Property(){}
-
-    public Property(String propertyName, String description, PropertyListingState listingState, PropertyState propertyState, LocalDate listingDate){
-        this.propertyName = propertyName;
+    public Property(String address,double price,String size,String description) {
         this.description = description;
-        this.listingState = listingState;
-        this.propertyState = propertyState;
-        this.listingDate = listingDate;
-    
+        this.address = address;
+        this.price = price;
+        this.description = description;
     }
 
-
-    // Getter y Setter para propertyName
-    public String getPropertyName() {
-        return propertyName;
+    // Getter y Setter para address
+    public String getAddress() {
+        return address;
     }
 
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    // Getter y Setter para price
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    // Getter y Setter para size
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 
     // Getter y Setter para description
@@ -49,32 +62,4 @@ public class Property {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    // Getter y Setter para listingState
-    public PropertyListingState getListingState() {
-        return listingState;
-    }
-
-    public void setListingState(PropertyListingState listingState) {
-        this.listingState = listingState;
-    }
-
-    // Getter y Setter para propertyState
-    public PropertyState getPropertyState() {
-        return propertyState;
-    }
-
-    public void setPropertyState(PropertyState propertyState) {
-        this.propertyState = propertyState;
-    }
-
-    // Getter y Setter para listingDate
-    public LocalDate getListingDate() {
-        return listingDate;
-    }
-
-    public void setListingDate(LocalDate listingDate) {
-        this.listingDate = listingDate;
-    }
-
 }

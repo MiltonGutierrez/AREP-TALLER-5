@@ -2,22 +2,39 @@ package edu.escuelaing.arep.taller5.App.services;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-import edu.escuelaing.arep.taller5.App.expection.PropertyListingException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import edu.escuelaing.arep.taller5.App.exception.PropertyListingException;
 import edu.escuelaing.arep.taller5.App.model.Property;
+import edu.escuelaing.arep.taller5.App.repository.PropertyListingRepository;
 
+
+@Service
 public class PropertyListingServicesImpl implements PropertyListingServices{
+
+    private PropertyListingRepository repository;
+
+    @Autowired
+    public PropertyListingServicesImpl(PropertyListingRepository repository){
+        this.repository = repository;
+    }
 
     @Override
     public List<Property> getProperties()  {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProperties'");
+       return (List<Property>) repository.findAll();
     }
 
     @Override
     public Property getPropertyById(Long id) throws PropertyListingException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPropertyById'");
+        Optional<Property> propertyInDB = repository.findById(id);
+        if(propertyInDB.isEmpty()){
+            throw new PropertyListingException(PropertyListingException.PROPERTY_NOT_FOUND);
+        }
+        return propertyInDB.get();
+
     }
 
     @Override

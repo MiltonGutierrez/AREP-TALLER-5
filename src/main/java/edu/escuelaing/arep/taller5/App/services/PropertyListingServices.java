@@ -3,7 +3,7 @@ package edu.escuelaing.arep.taller5.App.services;
 import java.util.List;
 import java.util.Map;
 
-import edu.escuelaing.arep.taller5.App.expection.PropertyListingException;
+import edu.escuelaing.arep.taller5.App.exception.PropertyListingException;
 import edu.escuelaing.arep.taller5.App.model.Property;
 
 public interface PropertyListingServices {

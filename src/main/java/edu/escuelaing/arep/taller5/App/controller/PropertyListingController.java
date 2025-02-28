@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.escuelaing.arep.taller5.App.expection.PropertyListingException;
+import edu.escuelaing.arep.taller5.App.exception.PropertyListingException;
 import edu.escuelaing.arep.taller5.App.model.Property;
 import edu.escuelaing.arep.taller5.App.services.PropertyListingServices;
 
