@@ -17,6 +17,7 @@ public class PropertyListingServicesImpl implements PropertyListingServices{
 
     private PropertyListingRepository repository;
 
+
     @Autowired
     public PropertyListingServicesImpl(PropertyListingRepository repository){
         this.repository = repository;
@@ -39,14 +40,35 @@ public class PropertyListingServicesImpl implements PropertyListingServices{
 
     @Override
     public Property updateProperty(Long id, Map<String, String> values) throws PropertyListingException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateProperty'");
+        Property propertyInDB = getPropertyById(id);
+        boolean updated = false;
+        if(values.containsKey("address")){
+            propertyInDB.setAddress(values.get("address"));
+            updated = true;
+        }
+        if(values.containsKey("prize")){
+            propertyInDB.setAddress(values.get("prize"));
+            updated = true;
+        }
+        if(values.containsKey("size")){
+            propertyInDB.setAddress(values.get("size"));
+            updated = true;
+        }
+        if(values.containsKey("description")){
+            propertyInDB.setAddress(values.get("description"));
+            updated = true;
+        }
+        if(!updated){
+            throw new PropertyListingException(PropertyListingException.PROPERTY_NOT_UPDATED);
+        }
+        return repository.save(propertyInDB);
     }
 
     @Override
     public Property deleteProperty(Long id) throws PropertyListingException{
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteProperty'");
+        Property propertyInDB = getPropertyById(id);
+        repository.deleteById(id);
+        return propertyInDB;
     }
     
 }
