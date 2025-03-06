@@ -11,7 +11,7 @@
 	<groupId>edu.escuelaing.arep.taller5</groupId>
 	<artifactId>App</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>App</name>
+	<name>app</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

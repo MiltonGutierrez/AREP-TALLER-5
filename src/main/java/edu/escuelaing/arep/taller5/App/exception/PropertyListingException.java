@@ -1,4 +1,4 @@
-package edu.escuelaing.arep.taller5.App.exception;
+package edu.escuelaing.arep.taller5.app.exception;
 
 public class PropertyListingException extends Exception{
 

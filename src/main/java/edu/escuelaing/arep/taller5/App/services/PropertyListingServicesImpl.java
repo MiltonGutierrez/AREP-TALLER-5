@@ -1,4 +1,4 @@
-package edu.escuelaing.arep.taller5.App.services;
+package edu.escuelaing.arep.taller5.app.services;
 
 import java.util.List;
 import java.util.Map;
@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.escuelaing.arep.taller5.App.exception.PropertyListingException;
-import edu.escuelaing.arep.taller5.App.model.Property;
-import edu.escuelaing.arep.taller5.App.repository.PropertyListingRepository;
+import edu.escuelaing.arep.taller5.app.exception.PropertyListingException;
+import edu.escuelaing.arep.taller5.app.model.Property;
+import edu.escuelaing.arep.taller5.app.repository.PropertyListingRepository;
 
 
 @Service
