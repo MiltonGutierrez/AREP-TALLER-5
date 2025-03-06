@@ -15,5 +15,7 @@ public interface PropertyListingServices {
     Property updateProperty(Long id, Map<String, String> queryParams) throws PropertyListingException;
 
     Property deleteProperty(Long id) throws PropertyListingException;
+
+    Property createProperty(Property property) throws PropertyListingException;
     
 }

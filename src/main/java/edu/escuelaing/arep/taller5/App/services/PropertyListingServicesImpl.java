@@ -43,19 +43,23 @@ public class PropertyListingServicesImpl implements PropertyListingServices{
         Property propertyInDB = getPropertyById(id);
         boolean updated = false;
         if(values.containsKey("address")){
+            System.out.println("updating address");
             propertyInDB.setAddress(values.get("address"));
             updated = true;
         }
-        if(values.containsKey("prize")){
-            propertyInDB.setAddress(values.get("prize"));
+        if(values.containsKey("price")){
+            System.out.println("updating price");
+            propertyInDB.setPrice(Double.valueOf(values.get("price")));
             updated = true;
         }
         if(values.containsKey("size")){
-            propertyInDB.setAddress(values.get("size"));
+            System.out.println("updating size");
+            propertyInDB.setSize(values.get("size"));
             updated = true;
         }
         if(values.containsKey("description")){
-            propertyInDB.setAddress(values.get("description"));
+            System.out.println("updating description");
+            propertyInDB.setDescription(values.get("description"));
             updated = true;
         }
         if(!updated){
@@ -69,6 +73,14 @@ public class PropertyListingServicesImpl implements PropertyListingServices{
         Property propertyInDB = getPropertyById(id);
         repository.deleteById(id);
         return propertyInDB;
+    }
+
+    @Override
+    public Property createProperty(Property property) throws PropertyListingException {
+        if(property.getAddress() == null || property.getPrice() == 0 || property.getSize() == null || property.getDescription() == null){
+            throw new PropertyListingException(PropertyListingException.MISSING_PROPERTY_PARAMETERS);
+        }
+        return repository.save(property);
     }
     
 }

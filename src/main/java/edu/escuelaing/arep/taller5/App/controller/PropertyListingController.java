@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
+import edu.escuelaing.arep.taller5.app.model.Property;
+
 public interface PropertyListingController {
     ResponseEntity<Object> getPropertyById(Long id);
 
@@ -13,5 +15,7 @@ public interface PropertyListingController {
     ResponseEntity<Object> updateProperty(Long id, Map<String, String> queryParams);
 
     ResponseEntity<Object> deleteProperty(Long id);
+
+    ResponseEntity<Object> createProperty(Property property);
 
 }
