@@ -61,10 +61,10 @@ const property = (() => {
             if(!minPrice || !maxPrice){
                 throw new Error('Both fields are required');
             }
-            if(minPrice < 0 || maxPrice < 0){
+            if(Number(minPrice) < 0 || Number(maxPrice) < 0){
                 throw new Error('Price must be positive');
             }
-            if(minPrice > maxPrice){
+            if(Number(minPrice) > Number(maxPrice)){
                 throw new Error('Min price must be less than max price');
             }
 
@@ -92,10 +92,10 @@ const property = (() => {
             if(!minSize || !maxSize){
                 throw new Error('Both fields are required');
             }
-            if(minSize < 0 || maxSize < 0){
+            if(Number(minSize) < 0 || Number(maxSize) < 0){
                 throw new Error('Range must be positive');
             }
-            if(minSize > maxSize){
+            if(Number(minSize) > Number(maxSize)){
                 throw new Error('Min range must be less than max range');
             }
 
