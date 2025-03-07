@@ -1,4 +1,4 @@
-package edu.escuelaing.arep.taller5.App;
+package edu.escuelaing.arep.taller5.app;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

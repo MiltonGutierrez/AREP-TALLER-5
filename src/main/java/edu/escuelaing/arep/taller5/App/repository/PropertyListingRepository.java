@@ -9,7 +9,6 @@ import edu.escuelaing.arep.taller5.app.model.Property;
 
 @Repository
 public interface PropertyListingRepository extends CrudRepository<Property, Long>  {
-    Property findById(long id);
     List<Property> findByPriceBetween(Double minPrice, Double maxPrice);
     List<Property> findBySizeBetween(Double minSize, Double maxSize);    
 }
