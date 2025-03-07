@@ -10,6 +10,10 @@ public interface PropertyListingServices {
 
     List<Property> getProperties();
 
+    List<Property> getPropertiesByPriceRange(double min, double max) throws PropertyListingException;
+
+    List<Property> getPropertiesBySizeRange(double min, double max) throws PropertyListingException;
+
     Property getPropertyById(Long id) throws PropertyListingException;
 
     Property updateProperty(Long id, Map<String, String> queryParams) throws PropertyListingException;
@@ -17,5 +21,6 @@ public interface PropertyListingServices {
     Property deleteProperty(Long id) throws PropertyListingException;
 
     Property createProperty(Property property) throws PropertyListingException;
+
     
 }

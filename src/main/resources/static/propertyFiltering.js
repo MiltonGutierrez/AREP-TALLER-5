@@ -10,7 +10,7 @@ const propertyFiltering = (() => {
         <input type="number" id="minPrice" name="minPrice" step="any" placeholder="Precio mínimo" required>
         <label for="maxPrice">Precio máximo:</label>
         <input type="number" id="maxPrice" name="maxPrice" step="any" placeholder="Precio máximo" required>
-        <button type="submit">Buscar por rango de precio</button>
+        <button type="button" onclick="property.getPropertiesByPriceRange()">Buscar por rango de precio</button>
       `;
     }
 
@@ -20,7 +20,7 @@ const propertyFiltering = (() => {
         <input type="number" id="minSize" name="minSize" step="any" placeholder="Tamaño mínimo" required>
         <label for="maxSize">Tamaño máximo (m²):</label>
         <input type="number" id="maxSize" name="maxSize" step="any" placeholder="Tamaño máximo" required>
-        <button type="submit">Buscar por rango de tamaño</button>
+        <button type="button" onclick="property.getPropertiesBySizeRange()">Buscar por rango de tamaño</button>
       `;
     };
 
@@ -28,7 +28,7 @@ const propertyFiltering = (() => {
         searchForm.innerHTML = `
         <label for="searchId">ID:</label>
         <input type="number" id="searchId" name="searchId" step="1" placeholder="Ingrese el ID" required>
-        <button type="submit">Buscar por ID</button>
+        <button type="button" onclick="property.getPropertyById()">Buscar por ID</button>
       `;
     }
 
