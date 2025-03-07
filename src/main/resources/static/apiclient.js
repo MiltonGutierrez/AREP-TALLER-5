@@ -1,5 +1,5 @@
 const apiClient = (() => {
-    const url = "http://localhost:8080/api/";
+    const url = "http://localhost:8087/api/";
 
     // GET
     const getProperties = async () => {
