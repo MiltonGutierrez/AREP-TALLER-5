@@ -1,4 +1,4 @@
-package edu.escuelaing.arep.taller5.App.services;
+package edu.escuelaing.arep.taller5.app.services;
 
 import java.util.List;
 import java.util.Map;
@@ -7,15 +7,16 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.escuelaing.arep.taller5.App.exception.PropertyListingException;
-import edu.escuelaing.arep.taller5.App.model.Property;
-import edu.escuelaing.arep.taller5.App.repository.PropertyListingRepository;
+import edu.escuelaing.arep.taller5.app.exception.PropertyListingException;
+import edu.escuelaing.arep.taller5.app.model.Property;
+import edu.escuelaing.arep.taller5.app.repository.PropertyListingRepository;
 
 
 @Service
 public class PropertyListingServicesImpl implements PropertyListingServices{
 
     private PropertyListingRepository repository;
+
 
     @Autowired
     public PropertyListingServicesImpl(PropertyListingRepository repository){
@@ -39,14 +40,43 @@ public class PropertyListingServicesImpl implements PropertyListingServices{
 
     @Override
     public Property updateProperty(Long id, Map<String, String> values) throws PropertyListingException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateProperty'");
+        Property propertyInDB = getPropertyById(id);
+        boolean updated = false;
+        if(values.get("address") != null){
+            propertyInDB.setAddress(values.get("address"));
+            updated = true;
+        }
+        if(values.get("price") != null){
+            propertyInDB.setPrice(Double.valueOf(values.get("price")));
+            updated = true;
+        }
+        if(values.get("size") != null){
+            propertyInDB.setSize(Double.valueOf(values.get("size")));
+            updated = true;
+        }
+        if(values.get("description") != null){
+            propertyInDB.setDescription(values.get("description"));
+            updated = true;
+        }
+        if(!updated){
+            throw new PropertyListingException(PropertyListingException.PROPERTY_NOT_UPDATED);
+        }
+        return repository.save(propertyInDB);
     }
 
     @Override
     public Property deleteProperty(Long id) throws PropertyListingException{
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteProperty'");
+        Property propertyInDB = getPropertyById(id);
+        repository.deleteById(id);
+        return propertyInDB;
+    }
+
+    @Override
+    public Property createProperty(Property property) throws PropertyListingException {
+        if(property.getAddress() == null || property.getPrice() <= 0 || property.getSize() <=0 || property.getDescription() == null){
+            throw new PropertyListingException(PropertyListingException.MISSING_PROPERTY_PARAMETERS);
+        }
+        return repository.save(property);
     }
     
 }

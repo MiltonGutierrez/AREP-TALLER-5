@@ -1,4 +1,4 @@
-package edu.escuelaing.arep.taller5.App.model;
+package edu.escuelaing.arep.taller5.app.model;
 
 
 import jakarta.persistence.Entity;
@@ -14,20 +14,19 @@ public class Property {
     private Long id;
     private String address;
     private double price;
-    private String size;
+    private double size;
     private String description;
 
     public Property() {
     }
 
-    public Property(String address,double price,String size,String description) {
-        this.description = description;
+    public Property(String address, double price, double size, String description) {
         this.address = address;
         this.price = price;
+        this.size = size;
         this.description = description;
     }
 
-    // Getter y Setter para address
     public String getAddress() {
         return address;
     }
@@ -36,7 +35,6 @@ public class Property {
         this.address = address;
     }
 
-    // Getter y Setter para price
     public double getPrice() {
         return price;
     }
@@ -45,21 +43,28 @@ public class Property {
         this.price = price;
     }
 
-    // Getter y Setter para size
-    public String getSize() {
+    public double getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(double size) {
         this.size = size;
     }
 
-    // Getter y Setter para description
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
