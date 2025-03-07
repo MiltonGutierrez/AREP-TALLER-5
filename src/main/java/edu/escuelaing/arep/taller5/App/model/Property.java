@@ -14,13 +14,13 @@ public class Property {
     private Long id;
     private String address;
     private double price;
-    private String size;
+    private double size;
     private String description;
 
     public Property() {
     }
 
-    public Property(String address, double price, String size, String description) {
+    public Property(String address, double price, double size, String description) {
         this.address = address;
         this.price = price;
         this.size = size;
@@ -43,11 +43,11 @@ public class Property {
         this.price = price;
     }
 
-    public String getSize() {
+    public double getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(double size) {
         this.size = size;
     }
 

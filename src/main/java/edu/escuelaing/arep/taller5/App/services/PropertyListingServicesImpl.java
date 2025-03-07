@@ -42,23 +42,19 @@ public class PropertyListingServicesImpl implements PropertyListingServices{
     public Property updateProperty(Long id, Map<String, String> values) throws PropertyListingException {
         Property propertyInDB = getPropertyById(id);
         boolean updated = false;
-        if(values.containsKey("address")){
-            System.out.println("updating address");
+        if(values.get("address") != null){
             propertyInDB.setAddress(values.get("address"));
             updated = true;
         }
-        if(values.containsKey("price")){
-            System.out.println("updating price");
+        if(values.get("price") != null){
             propertyInDB.setPrice(Double.valueOf(values.get("price")));
             updated = true;
         }
-        if(values.containsKey("size")){
-            System.out.println("updating size");
-            propertyInDB.setSize(values.get("size"));
+        if(values.get("size") != null){
+            propertyInDB.setSize(Double.valueOf(values.get("size")));
             updated = true;
         }
-        if(values.containsKey("description")){
-            System.out.println("updating description");
+        if(values.get("description") != null){
             propertyInDB.setDescription(values.get("description"));
             updated = true;
         }
@@ -77,7 +73,7 @@ public class PropertyListingServicesImpl implements PropertyListingServices{
 
     @Override
     public Property createProperty(Property property) throws PropertyListingException {
-        if(property.getAddress() == null || property.getPrice() == 0 || property.getSize() == null || property.getDescription() == null){
+        if(property.getAddress() == null || property.getPrice() <= 0 || property.getSize() <=0 || property.getDescription() == null){
             throw new PropertyListingException(PropertyListingException.MISSING_PROPERTY_PARAMETERS);
         }
         return repository.save(property);
