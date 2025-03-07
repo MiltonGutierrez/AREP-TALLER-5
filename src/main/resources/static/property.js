@@ -2,7 +2,6 @@ const property = (() => {
 
     let api = apiClient;
     let filterForm = "";
-    let fitlerFunctions = { "all": getProperties, "price": getPropertiesByPriceRange, "size": getPropertiesBySizeRange, "id": getPropertyById };
 
     const getProperties = async () => {
         try {
@@ -45,7 +44,7 @@ const property = (() => {
 
             let propertyList = document.getElementById("propertyList");
             propertyList.innerHTML = "";
-            propertyList.appendChild(createPropertyDiv(property));
+            propertyList.appendChild(createPropertyDiv(response));
 
             updateFilterForm("id");
             return response;
@@ -59,6 +58,16 @@ const property = (() => {
         try {
             let minPrice = document.getElementById('minPrice').value;
             let maxPrice = document.getElementById('maxPrice').value;
+            if(!minPrice || !maxPrice){
+                throw new Error('Both fields are required');
+            }
+            if(minPrice < 0 || maxPrice < 0){
+                throw new Error('Price must be positive');
+            }
+            if(minPrice > maxPrice){
+                throw new Error('Min price must be less than max price');
+            }
+
             let properties = await api.getPropertiesByPriceRange(minPrice, maxPrice);
             console.log(properties);
 
@@ -79,6 +88,17 @@ const property = (() => {
         try {
             let minSize = document.getElementById('minSize').value;
             let maxSize = document.getElementById('maxSize').value;
+
+            if(!minSize || !maxSize){
+                throw new Error('Both fields are required');
+            }
+            if(minSize < 0 || maxSize < 0){
+                throw new Error('Range must be positive');
+            }
+            if(minSize > maxSize){
+                throw new Error('Min range must be less than max range');
+            }
+
             let properties = await api.getPropertiesBySizeRange(minSize, maxSize);
             console.log(properties);
 
@@ -185,6 +205,9 @@ const property = (() => {
     const updateFilterForm = (form) => {
         filterForm = form;
     }
+
+    let fitlerFunctions = { "all": getProperties, "price": getPropertiesByPriceRange, "size": getPropertiesBySizeRange, "id": function () {  let propertyList = document.getElementById("propertyList");
+        propertyList.innerHTML = "";} };
 
     return {
         getProperties,
