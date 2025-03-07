@@ -1,6 +1,7 @@
 const property = (() => {
 
     let api = apiClient;
+    let filterForm = "";
 
     const getProperties = async () => {
         try {
@@ -8,36 +9,112 @@ const property = (() => {
             console.log(properties);
             let propertyList = document.getElementById("propertyList");
             propertyList.innerHTML = "";
-
             properties.forEach(property => {
-                const propertyItem = document.createElement("div");
-                propertyItem.classList.add("property-item");
-                propertyItem.innerHTML = `
-                    <p><strong>Address:</strong> ${property.address}</p>
-                    <p><strong>Price:</strong> $${property.price.toFixed(2)}</p>
-                    <p><strong>Size:</strong> ${property.size} m²</p>
-                    <p><strong>Description:</strong> ${property.description}</p>
-                    <button class="update-btn" onclick="property.openUpdateForm(${property.id})">Update</button>
-                    <button class="delete-btn" onclick="property.deleteProperty(${property.id})">Delete</button>
-                `;
-                propertyList.appendChild(propertyItem);
+                propertyList.appendChild(createPropertyDiv(property));
             });
+
+            updateFilterForm("all");
+
+            return properties;
         } catch (error) {
             alert(error);
         }
     };
 
+    const createPropertyDiv = (property) => {
+        const propertyItem = document.createElement("div");
+        propertyItem.classList.add("property-item");
+        propertyItem.innerHTML = `
+            <p><strong>Id:</strong> ${property.id}</p>
+            <p><strong>Address:</strong> ${property.address}</p>
+            <p><strong>Price:</strong> $${property.price.toFixed(2)}</p>
+            <p><strong>Size:</strong> ${property.size} m²</p>
+            <p><strong>Description:</strong> ${property.description}</p>
+            <button class="update-btn" onclick="property.openUpdateForm(${property.id})">Update</button>
+            <button class="delete-btn" onclick="property.deleteProperty(${property.id})">Delete</button>`;
+        return propertyItem;
+    };
 
 
     const getPropertyById = async (id) => {
         try {
+            let id = document.getElementById('searchId').value;
             let response = await api.getPropertyById(id);
             console.log(response);
+
+            let propertyList = document.getElementById("propertyList");
+            propertyList.innerHTML = "";
+            propertyList.appendChild(createPropertyDiv(response));
+
+            updateFilterForm("id");
             return response;
+
         } catch (error) {
             alert(error);
         }
     };
+
+    const getPropertiesByPriceRange = async () => {
+        try {
+            let minPrice = document.getElementById('minPrice').value;
+            let maxPrice = document.getElementById('maxPrice').value;
+            if(!minPrice || !maxPrice){
+                throw new Error('Both fields are required');
+            }
+            if(minPrice < 0 || maxPrice < 0){
+                throw new Error('Price must be positive');
+            }
+            if(minPrice > maxPrice){
+                throw new Error('Min price must be less than max price');
+            }
+
+            let properties = await api.getPropertiesByPriceRange(minPrice, maxPrice);
+            console.log(properties);
+
+            let propertyList = document.getElementById("propertyList");
+            propertyList.innerHTML = "";
+            properties.forEach(property => {
+                propertyList.appendChild(createPropertyDiv(property));
+            });
+           
+            updateFilterForm("price");
+            return properties;
+        } catch (error) {
+            alert(error);
+        }
+    };
+
+    const getPropertiesBySizeRange = async () => {
+        try {
+            let minSize = document.getElementById('minSize').value;
+            let maxSize = document.getElementById('maxSize').value;
+
+            if(!minSize || !maxSize){
+                throw new Error('Both fields are required');
+            }
+            if(minSize < 0 || maxSize < 0){
+                throw new Error('Range must be positive');
+            }
+            if(minSize > maxSize){
+                throw new Error('Min range must be less than max range');
+            }
+
+            let properties = await api.getPropertiesBySizeRange(minSize, maxSize);
+            console.log(properties);
+
+            let propertyList = document.getElementById("propertyList");
+            propertyList.innerHTML = "";
+            properties.forEach(property => {
+                propertyList.appendChild(createPropertyDiv(property));
+            });
+
+            updateFilterForm("size");
+            return properties;
+        } catch (error) {
+            alert(error);
+        }
+    };
+
 
     const createProperty = async () => {
         try {
@@ -103,7 +180,7 @@ const property = (() => {
             let response = await api.updateProperty(id, body);
             console.log(response);
             closeUpdateForm();
-            getProperties();
+            fitlerFunctions[filterForm]();
             return response;
         } catch (error) {
             alert(error);
@@ -114,6 +191,7 @@ const property = (() => {
         try {
             let response = await api.deleteProperty(id);
             console.log(response);
+            fitlerFunctions[filterForm]();
             return response;
         } catch (error) {
             alert(error);
@@ -124,14 +202,22 @@ const property = (() => {
         document.getElementById("updateFormContainer").style.display = "none";
     };
 
+    const updateFilterForm = (form) => {
+        filterForm = form;
+    }
+
+    let fitlerFunctions = { "all": getProperties, "price": getPropertiesByPriceRange, "size": getPropertiesBySizeRange, "id": function () {  let propertyList = document.getElementById("propertyList");
+        propertyList.innerHTML = "";} };
+
     return {
         getProperties,
         getPropertyById,
+        getPropertiesByPriceRange,
+        getPropertiesBySizeRange,
         createProperty,
         updateProperty,
         deleteProperty,
         openUpdateForm
-
     };
 
 })();

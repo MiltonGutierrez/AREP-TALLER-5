@@ -78,5 +78,20 @@ public class PropertyListingServicesImpl implements PropertyListingServices{
         }
         return repository.save(property);
     }
+
+    @Override
+    public List<Property> getPropertiesByPriceRange(double min, double max) throws PropertyListingException {
+        if(min < 0 || max < 0 || min > max){
+            throw new PropertyListingException(PropertyListingException.INVALID_PRICE_RANGE);
+        }
+        return repository.findByPriceBetween(min, max);}
+
+    @Override
+    public List<Property> getPropertiesBySizeRange(double min, double max) throws PropertyListingException {
+        if(min < 0 || max < 0 || min > max){
+            throw new PropertyListingException(PropertyListingException.INVALID_SIZE_RANGE);
+        }
+        return repository.findBySizeBetween(min, max);
+    }
     
 }

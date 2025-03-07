@@ -51,6 +51,32 @@ public class PropertyListingControllerImpl implements PropertyListingController 
         return new ResponseEntity<>(properties, HttpStatus.OK);
     }
 
+
+    @Override
+    @GetMapping("/property/price/{min}/{max}")
+    public ResponseEntity<Object> getPropertiesByPriceRange(@PathVariable double min, @PathVariable double max) {
+        List<Property> properties;
+        try {
+            properties = propertyListingService.getPropertiesByPriceRange(min, max);
+            return new ResponseEntity<>(properties, HttpStatus.OK);
+        } catch (PropertyListingException e) {
+            return new ResponseEntity<>(Map.of(ERROR_KEY, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    @GetMapping("/property/size/{min}/{max}")
+    public ResponseEntity<Object> getPropertiesBySizeRange(@PathVariable double min, @PathVariable double max) {
+        List<Property> properties;
+        try {
+            properties = propertyListingService.getPropertiesBySizeRange(min, max);
+            return new ResponseEntity<>(properties, HttpStatus.OK);
+        } catch (PropertyListingException e) {
+            return new ResponseEntity<>(Map.of(ERROR_KEY, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
     @Override
     @PutMapping("/property/{id}")
     public ResponseEntity<Object> updateProperty(@PathVariable Long id, @RequestBody Map<String, String> queryParams) {
@@ -85,5 +111,6 @@ public class PropertyListingControllerImpl implements PropertyListingController 
             return new ResponseEntity<>(Map.of(ERROR_KEY, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
 
 }

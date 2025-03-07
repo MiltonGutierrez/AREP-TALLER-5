@@ -1,5 +1,5 @@
 const apiClient = (() => {
-    const url = "http://localhost:8080/api/";
+    const url = "http://localhost:8087/api/";
 
     // GET
     const getProperties = async () => {
@@ -11,6 +11,16 @@ const apiClient = (() => {
         const response = await fetch(url + `property/${id}`);
         return response.json();
     };
+
+    const getPropertiesByPriceRange = async (minPrice, maxPrice) => {
+        const response = await fetch(url + `property/price/${minPrice}/${maxPrice}`);
+        return response.json();
+    };
+
+    const getPropertiesBySizeRange = async (minSize, maxSize) => {
+        const response = await fetch(url + `property/size/${minSize}/${maxSize}`);
+        return response.json();
+    }
 
     // POST
     const createProperty = async (body) => {
@@ -41,6 +51,8 @@ const apiClient = (() => {
     return {
         getProperties,
         getPropertyById,
+        getPropertiesByPriceRange,
+        getPropertiesBySizeRange,
         createProperty,
         updateProperty,
         deleteProperty

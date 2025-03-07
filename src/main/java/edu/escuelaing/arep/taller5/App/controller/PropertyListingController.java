@@ -18,4 +18,8 @@ public interface PropertyListingController {
 
     ResponseEntity<Object> createProperty(Property property);
 
+    ResponseEntity<Object> getPropertiesByPriceRange(double min, double max);
+
+    ResponseEntity<Object> getPropertiesBySizeRange(double min, double max);
+
 }
