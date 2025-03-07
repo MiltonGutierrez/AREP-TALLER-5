@@ -126,6 +126,11 @@ El siguiente diagrama de despliegue describe la estructura básica de la aplicac
 
 
 
+https://github.com/user-attachments/assets/36d71a5a-f8b8-492a-9741-48147fdb710c
+
+
+
+
 # Tecnologías Usadas en Pruebas
 - **JUnit Jupiter 5:** Para pruebas unitarias y parametrizadas.
 - **Mockito:** Para pruebas unitarias sobre los componentes Controller y Service
