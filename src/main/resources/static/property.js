@@ -4,9 +4,10 @@ const property = (() => {
 
     const getProperties = async () => {
         try {
-            const propertyList = document.getElementById("propertyList");
+            let properties = await api.getProperties();
+            console.log(properties);
+            let propertyList = document.getElementById("propertyList");
             propertyList.innerHTML = ""; 
-            const properties = api.getProperties();
 
             properties.forEach(property => {
                 const propertyItem = document.createElement("div");
@@ -31,7 +32,8 @@ const property = (() => {
     const getPropertyById = async (id) => {
         try {
             let response = await api.getPropertyById(id);
-            return response.json();
+            console.log(response);
+            return response;
         } catch (error) {
             alert(error);
         }
@@ -54,7 +56,8 @@ const property = (() => {
                 description: description
             });
             let response = await api.createProperty(body);
-            return response.json();
+            console.log(response);
+            return response;
         } catch (error) {
             alert(error);
         }
@@ -69,7 +72,8 @@ const property = (() => {
                 description: description
             });
             let response = await api.updateProperty(id, body);
-            return response.json();
+            console.log(response);
+            return response;
         } catch (error) {
             alert(error);
         }
@@ -78,7 +82,8 @@ const property = (() => {
     const deleteProperty = async (id) => {
         try {
             let response = await api.deleteProperty(id);
-            return response.json();
+            console.log(response);
+            return response;
         } catch (error) {
             alert(error);
         }

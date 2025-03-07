@@ -1,62 +1,48 @@
 const apiClient = (() => {
-
     const url = "http://localhost:8080/api/";
 
-    //Get
-
+    // GET
     const getProperties = async () => {
-        let response = await $.ajax({
-            url: url + 'property',
-            method: 'GET',
-          });
-        return response;
+        const response = await fetch(url + 'property');
+        return response.json();
     };
 
     const getPropertyById = async (id) => {
-        let response = await $.ajax({
-            url: url + 'property/' + id,
-            method: 'GET',
-          });
-        return response;
-    }
-
-    //POST
-
-    const createProperty = async (body) => {
-        let response = await $.ajax({
-            url: url + 'property',
-            method: 'POST',
-            data: body,
-            contentType: 'application/json'
-        });
-        return response;
-        
+        const response = await fetch(url + `property/${id}`);
+        return response.json();
     };
 
-    //PUT
-    const updateProperty = async (body) => {
-        let response = await $.ajax({
-            url: url + 'property/' + id,
-            method: 'PUT',
-            data: body,
-            contentType: 'application/json'
+    // POST
+    const createProperty = async (body) => {
+        const response = await fetch(url + 'property', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: body
         });
-        return response;
-    }
+        return response.json();
+    };
 
-    const deleteProperty = async (id) => {
-        let response = await $.ajax({
-            url: url + 'property/' + id,
-            method: 'DELETE',
+    // PUT
+    const updateProperty = async (id, body) => {
+        const response = await fetch(url + `property/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: body
         });
-        return response;
-    }
+        return response.json();
+    };
+
+    // DELETE
+    const deleteProperty = async (id) => {
+        const response = await fetch(url + `property/${id}`, { method: 'DELETE' });
+        return response.json();
+    };
 
     return {
         getProperties,
         getPropertyById,
         createProperty,
-        updateProperty
-    }
-    
+        updateProperty,
+        deleteProperty
+    };
 })();

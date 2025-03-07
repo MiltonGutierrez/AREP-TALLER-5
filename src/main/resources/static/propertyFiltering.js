@@ -1,7 +1,7 @@
 const propertyFiltering = (() => {
 
     const buttonFilterAll = () => {
-        searchForm.innerHTML = `<button type="submit">Buscar Todas</button>`;
+        searchForm.innerHTML = `<button type="button" onclick="property.getProperties()">Buscar Todas</button>`;
     };
 
     const buttonFilterByPriceRange = () => {
